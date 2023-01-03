@@ -8,31 +8,35 @@ contract VendingMachine {
 
     address public owner;
 
-    mapping (address => uint) public donutBalances;
+    mapping (address => uint)  cokeBalances;
 
     // set the owner as the address that deployed the contract
 
     // set the initial vending machine balance to 100
 
-    constructor() {
+   constructor() {
 
-        owner = msg.sender;
+    owner = msg.sender;
 
-        donutBalances[address(this)] = 100;
+    cokeBalances[address(this)] = 100;
+
     }
 
     function getVendingMachineBalance() public view returns (uint) {
 
-        return donutBalances[address(this)];
+    return cokeBalances[address(this)];
+
     }
 
     // Let the owner restock the vending machine
 
     function restock(uint amount) public {
 
-        require(msg.sender == owner, "Only the owner can restock.");
+    require(msg.sender == owner, "Only the owner can restock.");
 
-        donutBalances[address(this)] += amount;
+    cokeBalances[address(this)] += amount;
+    
+
     }
 
     // Purchase donuts from the vending machine
@@ -40,13 +44,15 @@ contract VendingMachine {
 
     function purchase(uint amount) public payable {
 
-        require(msg.value >= amount * 2 ether, "You must pay at least 2 ETH per donut");
+    require(msg.value >= amount * 3 ether, "You must pay at least 1 ETH per coke");
 
-        require(donutBalances[address(this)] >= amount, "Not enough donuts in stock to complete this purchase");
+    require(cokeBalances[address(this)] >= amount, "No stock  ");
 
-        donutBalances[address(this)] -= amount;
+    cokeBalances[address(this)] -= amount;
 
-        donutBalances[msg.sender] += amount;
+    cokeBalances[msg.sender] += amount;
+    
+
     }
 
 }
