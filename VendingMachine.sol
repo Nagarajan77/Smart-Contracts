@@ -39,7 +39,7 @@ contract VendingMachine {
 
     }
 
-    // Purchase donuts from the vending machine
+    // Purchase coke from the vending machine
 
 
     function purchase(uint amount) public payable {
